@@ -1,32 +1,14 @@
 const express = require("express");
-const puppeteer = require("puppeteer");
+
+const { getBrowser } = require("./src/utils");
+const home = require("./src/home");
+const api = require("./src/api");
 
 const app = express();
+app.use(express.json());
 
-let browser;
-const getBrowser = async () => {
-  if (browser) return browser;
-  browser = await puppeteer.launch({ args: ["--no-sandbox"] });
-  return browser;
-};
-
-app.get("/", async (req, res, next) => {
-  try {
-    const browser = await getBrowser();
-    const page = await browser.newPage();
-    await page.goto("https://google.com");
-    const screenshotData = await page.screenshot();
-    await page.close();
-    res
-      .status(200)
-      .type("png")
-      .send(screenshotData)
-      .end();
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+app.get("/", home);
+app.use("/api", api);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, async () => {
