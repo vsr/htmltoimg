@@ -1,0 +1,23 @@
+{
+  "name": "htmltoimg",
+  "version": "1.0.0",
+  "description": "Turns HTML to image, using puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha --exit test/*.test.js"
+  },
+  "engines": {
+    "node": ">=8.16.0"
+  },
+  "keywords": [],
+  "author": "rockraikar@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "puppeteer": "^2.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  }
+}
