@@ -14,10 +14,8 @@ npm start
 Path: `/api/htmltoimg`
 Method: `POST`
 Parameters:
-    * `url`: url of the page
-    * `html`: html content of page (pass in either one of `url` or `html`)
-    * `type`: image type, can be either `png` or `jpeg`
-
+_ `url`: url of the page
+_ `html`: html content of page (pass in either one of `url` or `html`) \* `type`: image type, can be either `png` or `jpeg`
 
 ```js
 {
@@ -26,3 +24,9 @@ Parameters:
     type: "png", // jpeg or png
 }
 ```
+
+## TODO
+
+- Add tests
+- Accept image type, `png` or `jpeg`
+-
