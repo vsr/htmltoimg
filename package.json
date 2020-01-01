@@ -4,6 +4,7 @@
   "description": "Turns HTML to image, using puppeteer",
   "main": "index.js",
   "scripts": {
+    "deploy": "gcloud app deploy",
     "start": "node index.js",
     "test": "mocha --exit test/*.test.js"
   },
