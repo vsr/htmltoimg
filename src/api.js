@@ -3,16 +3,23 @@ const { getBrowser } = require("./utils");
 
 const router = express.Router();
 
-router.get("/htmltoimg", async (req, res, next) => {
+router.post("/htmltoimg", async (req, res, next) => {
+  let url;
+  let html;
+  if (req.body.url) {
+    url = req.body.url;
+  } else if (req.body.html) {
+    html = req.body.html;
+  } else {
+    throw new Error("Pass either url or html content.");
+  }
   try {
     const browser = await getBrowser();
     const page = await browser.newPage();
-    if (req.body.url) {
-      await page.goto(req.body.url);
-    } else if (req.body.html) {
-      await page.setContent(req.body.html);
+    if (url) {
+      await page.goto(url);
     } else {
-      throw new Error("Pass either url or html content.");
+      await page.setContent(html);
     }
     const screenshotData = await page.screenshot();
     await page.close();
