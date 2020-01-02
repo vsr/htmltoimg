@@ -15,7 +15,7 @@
   "author": "rockraikar@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "@hapi/hapi": "^18.4.0",
     "puppeteer": "^2.0.0"
   },
   "devDependencies": {

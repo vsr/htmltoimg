@@ -1,20 +1,30 @@
-const express = require("express");
+const Hapi = require("@hapi/hapi");
 
-const { getBrowser } = require("./src/utils");
-const home = require("./src/home");
-const api = require("./src/api");
+const home = require("./lib/home");
+const api = require("./lib/api");
 
-const app = express();
-app.use(express.json());
+const init = async () => {
+  const PORT = process.env.PORT || 8080;
+  const ENV = process.env.NODE_ENV || "local";
+  const HOST = ENV === "production" ? "0.0.0.0" : "localhost";
+  const server = Hapi.server({
+    port: PORT,
+    host: HOST
+  });
 
-app.get("/", home);
-app.use("/api", api);
+  server.route(home);
+  await server.register(api, {
+    routes: {
+      prefix: "/api"
+    }
+  });
+  await server.start();
+  console.log(`Server running on port ${PORT}`);
+};
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, async () => {
-  await getBrowser();
-  console.log(`App listening on port ${PORT}`);
-  console.log("Press Ctrl+C to quit.");
+process.on("unhandledRejection", err => {
+  console.error(err);
+  process.exit(1);
 });
 
-module.exports = app;
+init();
