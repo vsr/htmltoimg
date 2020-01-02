@@ -15,7 +15,9 @@
   "author": "rockraikar@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "@hapi/boom": "^8.0.1",
     "@hapi/hapi": "^18.4.0",
+    "@hapi/joi": "^16.1.8",
     "puppeteer": "^2.0.0"
   },
   "devDependencies": {

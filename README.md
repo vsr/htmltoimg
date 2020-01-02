@@ -25,6 +25,37 @@ _ `html`: html content of page (pass in either one of `url` or `html`) \* `type`
 }
 ```
 
+The Joi validation object:
+
+```js
+Joi.object({
+  url: Joi.string().uri(),
+  html: Joi.string(),
+  element: Joi.string(),
+  type: Joi.string()
+    .case("lower")
+    .valid("png", "jpeg")
+    .default("png"),
+  fullPage: Joi.boolean(),
+  clip: Joi.object({
+    x: Joi.number(),
+    y: Joi.number(),
+    width: Joi.number(),
+    height: Joi.number()
+  }).and("x", "y", "width", "height"),
+  omitBackground: Joi.boolean(),
+  viewport: Joi.object({
+    width: Joi.number().required(),
+    height: Joi.number().required(),
+    deviceScaleFactor: Joi.number(),
+    isMobile: Joi.boolean(),
+    isLandscape: Joi.boolean()
+  })
+})
+  .xor("url", "html")
+  .without("fullPage", ["clip"]);
+```
+
 ## TODO
 
 - Add tests

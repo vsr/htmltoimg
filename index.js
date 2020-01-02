@@ -9,7 +9,20 @@ const init = async () => {
   const HOST = ENV === "production" ? "0.0.0.0" : "localhost";
   const server = Hapi.server({
     port: PORT,
-    host: HOST
+    host: HOST,
+    routes: {
+      validate: {
+        failAction: async (request, h, err) => {
+          if (process.env.NODE_ENV === "production") {
+            console.error("ValidationError:", err.message);
+            throw Boom.badRequest(`Invalid request payload input`);
+          } else {
+            console.error(err);
+            throw err;
+          }
+        }
+      }
+    }
   });
 
   server.route(home);
